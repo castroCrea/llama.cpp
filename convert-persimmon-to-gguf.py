@@ -1,13 +1,10 @@
-#!/usr/bin/env python3
-import argparse
-import os
-import sys
-from pathlib import Path
-from pprint import pprint
-
 import torch
+import os
+from pprint import pprint
+import sys
+import argparse
+from pathlib import Path
 from sentencepiece import SentencePieceProcessor
-
 if 'NO_LOCAL_GGUF' not in os.environ:
     sys.path.insert(1, str(Path(__file__).parent / 'gguf-py'))
 import gguf
@@ -71,7 +68,7 @@ def main():
     persimmon_model = torch.load(args.ckpt_path)
     hparams = persimmon_model['args']
     pprint(hparams)
-    tensors: dict[str, torch.Tensor] = {}
+    tensors = {}
     _flatten_dict(persimmon_model['model'], tensors, None)
 
     arch = gguf.MODEL_ARCH.PERSIMMON

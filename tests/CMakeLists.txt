@@ -1,27 +1,21 @@
 function(llama_build_executable source)
     get_filename_component(TEST_TARGET ${source} NAME_WE)
-    add_executable(${TEST_TARGET} ${source} get-model.cpp)
+    add_executable(${TEST_TARGET} ${source})
     install(TARGETS ${TEST_TARGET} RUNTIME)
-    target_link_libraries(${TEST_TARGET} PRIVATE common)
+    target_link_libraries(${TEST_TARGET} PRIVATE llama common)
 endfunction()
 
 function(llama_test_executable name source)
     get_filename_component(TEST_TARGET ${source} NAME_WE)
     add_test(NAME ${name} COMMAND $<TARGET_FILE:${TEST_TARGET}> ${ARGN})
-    set_property(TEST ${name} PROPERTY LABELS "main")
 endfunction()
 
 function(llama_build_and_test_executable source)
-    llama_build_and_test_executable_with_label(${source} "main")
-endfunction()
-
-function(llama_build_and_test_executable_with_label source label)
     get_filename_component(TEST_TARGET ${source} NAME_WE)
-    add_executable(${TEST_TARGET} ${source} get-model.cpp)
+    add_executable(${TEST_TARGET} ${source})
     install(TARGETS ${TEST_TARGET} RUNTIME)
-    target_link_libraries(${TEST_TARGET} PRIVATE common)
+    target_link_libraries(${TEST_TARGET} PRIVATE llama common)
     add_test(NAME ${TEST_TARGET} COMMAND $<TARGET_FILE:${TEST_TARGET}> ${ARGN})
-    set_property(TEST ${TEST_TARGET} PROPERTY LABELS ${label})
 endfunction()
 
 # llama_build_and_test_executable(test-double-float.cpp) # SLOW
@@ -47,7 +41,6 @@ llama_test_executable (test-tokenizer-1-stablelm-3b-4e1t test-tokenizer-1-bpe.cp
 llama_test_executable (test-tokenizer-1-gpt-neox         test-tokenizer-1-bpe.cpp ${CMAKE_CURRENT_SOURCE_DIR}/../models/ggml-vocab-gpt-neox.gguf)
 llama_test_executable (test-tokenizer-1-refact           test-tokenizer-1-bpe.cpp ${CMAKE_CURRENT_SOURCE_DIR}/../models/ggml-vocab-refact.gguf)
 llama_test_executable (test-tokenizer-1-starcoder        test-tokenizer-1-bpe.cpp ${CMAKE_CURRENT_SOURCE_DIR}/../models/ggml-vocab-starcoder.gguf)
-llama_test_executable (test-tokenizer-1-gpt2             test-tokenizer-1-bpe.cpp ${CMAKE_CURRENT_SOURCE_DIR}/../models/ggml-vocab-gpt2.gguf)
 # llama_test_executable (test-tokenizer-1-bloom test-tokenizer-1-bpe.cpp ${CMAKE_CURRENT_SOURCE_DIR}/../models/ggml-vocab-bloom.gguf) # BIG
 
 llama_build_and_test_executable(test-grammar-parser.cpp)
@@ -57,9 +50,6 @@ llama_build_and_test_executable(test-grad0.cpp)
 llama_build_and_test_executable(test-backend-ops.cpp)
 
 llama_build_and_test_executable(test-rope.cpp)
-
-llama_build_and_test_executable_with_label(test-model-load-cancel.cpp "model")
-llama_build_and_test_executable_with_label(test-autorelease.cpp "model")
 
 # dummy executable - not installed
 get_filename_component(TEST_TARGET test-c.c NAME_WE)

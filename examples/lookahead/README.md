@@ -1,6 +1,6 @@
 # llama.cpp/examples/lookahead
 
-Demonstration of lookahead decoding technique:
+Demonstartion of lookahead decoding technique:
 
 https://lmsys.org/blog/2023-11-21-lookahead-decoding/
 

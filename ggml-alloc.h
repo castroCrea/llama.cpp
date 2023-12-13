@@ -43,7 +43,7 @@ GGML_API size_t ggml_allocr_alloc_graph(ggml_allocr_t alloc, struct ggml_cgraph 
 // ggml-backend v2 API
 //
 
-// Separate tensor and graph allocator objects
+// Seperate tensor and graph allocator objects
 // This is necessary for multi-backend allocation because the graph allocator needs to use multiple tensor allocators
 // The original API is kept as a wrapper around the new API
 
@@ -52,10 +52,8 @@ typedef struct ggml_tallocr * ggml_tallocr_t;
 
 GGML_API ggml_tallocr_t ggml_tallocr_new(void * data, size_t size, size_t alignment);
 GGML_API ggml_tallocr_t ggml_tallocr_new_measure(size_t alignment);
-GGML_API ggml_tallocr_t ggml_tallocr_new_from_buft(struct ggml_backend_buffer_type * buft, size_t size);
-GGML_API ggml_tallocr_t ggml_tallocr_new_from_backend(struct ggml_backend * backend, size_t size); // allocates an owned buffer
 GGML_API ggml_tallocr_t ggml_tallocr_new_from_buffer(struct ggml_backend_buffer * buffer);
-GGML_API ggml_tallocr_t ggml_tallocr_new_measure_from_buft(struct ggml_backend_buffer_type * buft);
+GGML_API ggml_tallocr_t ggml_tallocr_new_from_backend(struct ggml_backend * backend, size_t size); // allocates an owned buffer
 GGML_API ggml_tallocr_t ggml_tallocr_new_measure_from_backend(struct ggml_backend * backend);
 
 GGML_API struct ggml_backend_buffer * ggml_tallocr_get_buffer(ggml_tallocr_t talloc);
