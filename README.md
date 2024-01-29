@@ -2,6 +2,16 @@
 
 Original [README](./README.orig.md)
 
+## Conda
+
+https://docs.conda.io/en/latest/
+
+```bash
+conda create -n myenv python=3.9 -y
+conda activate myenv
+conda deactivate
+```
+
 ## Repo
 
 https://github.com/ggerganov/llama.cpp
@@ -27,7 +37,7 @@ make
 # 7GB size 508 token prompt
 wget https://huggingface.co/TheBloke/Mixtral-8x7B-Instruct-v0.1-GGUF/resolve/main/mixtral-8x7b-instruct-v0.1.Q2_K.gguf
 make -j && ./main -m models/mixtral-8x7b-instruct-v0.1.Q2_K.gguf -p "Building a website can be done in 10 simple steps:\nStep 1:" -e --ctx-size 0
-make -j && ./main -m models/mixtral-8x7b-instruct-v0.1.Q2_K.gguf -p "What's a 'number of tokens to predict' in LLAMA.ccp" -e --ctx-size 0
+make -j && ./main -m models/mixtral-8x7b-instruct-v0.1.Q2_K.gguf -p "What's a 'Tell me how many country there is in the world ?" -e --ctx-size 0
 
 
 # or openbuddy-mixtral-7bx8-v16.3-32k.Q8_0.gguf exhaust Mac M3 max memory - 32Go
